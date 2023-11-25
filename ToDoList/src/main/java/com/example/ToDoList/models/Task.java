@@ -13,11 +13,11 @@ public class Task {
     private Long id;
 
     @Column
- //   @NotBlank(message = "task cannot be blank.")
+    @NotBlank(message = "task cannot be blank.")
     private String task;
 
     @Column
-  //  @NotBlank(message = "please indicate the task completion status")
+    @NotBlank(message = "task status cannot be blank")
     private boolean completed;
 
     public Task() {

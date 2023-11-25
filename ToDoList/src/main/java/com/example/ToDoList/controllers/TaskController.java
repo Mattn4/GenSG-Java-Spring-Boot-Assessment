@@ -1,5 +1,7 @@
 package com.example.ToDoList.controllers;
 
+import com.example.ToDoList.exceptions.NoTasksFoundException;
+import com.example.ToDoList.exceptions.TaskNotFoundException;
 import com.example.ToDoList.models.Task;
 import com.example.ToDoList.services.TaskService;
 import jakarta.validation.Valid;
@@ -21,8 +23,40 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTask());
+    public ResponseEntity<Object> getAllTasks() {
+
+        List<Task> result = taskService.getAllTask();
+
+        if(result.isEmpty()) {
+            throw new NoTasksFoundException(); // did not show message
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
+
+//    public ResponseEntity<Object> getAllTasks() {
+//
+//        List<Task> result = taskService.getAllTask();
+//
+//        if(!result.isEmpty()){
+//            return new ResponseEntity<>(result, HttpStatus.OK);
+//        }else{
+//            return new ResponseEntity<>("No task(s) found", HttpStatus.NOT_FOUND);
+//        }
+//
+//    }
+
+//    public ResponseEntity<List<Task>> getAllTasks() {
+//        return ResponseEntity.ok(taskService.getAllTask());
+//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getSingleTask(@PathVariable Long id){
+
+        Task result = taskService.getProduct(id).orElseThrow(() -> new TaskNotFoundException(id));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
 
     @GetMapping("/completed")
