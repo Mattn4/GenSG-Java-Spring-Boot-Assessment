@@ -1,62 +1,23 @@
 package com.example.ToDoList.services;
 
 import com.example.ToDoList.models.Task;
-import com.example.ToDoList.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class TaskService {
+public interface TaskService {
+    public abstract Task createNewTask(Task task);
 
-    private final TaskRepository taskRepository;
+    public abstract List<Task> getAllTask();
 
-    public TaskService (@Autowired TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
+    public abstract Optional<Task> getTask(Long id);
 
-//    public void createNewTask(Task task) {
-//        taskRepository.save(task);
-//    }
+    public abstract List<Task> findAllCompletedTask();
 
-    public Task createNewTask(Task task) {
-        return taskRepository.save(task);
-    }
+    public abstract List<Task> findAllInCompleteTask();
 
-    public List<Task> getAllTask() {
-        return taskRepository.findAll();
-    }
+    public abstract void deleteTask(Long id);
 
-    public Optional<Task> getTask(Long id){
-        return taskRepository.findById(id);
-    }
-
-    public List<Task> findAllCompletedTask() {
-        return taskRepository.findByCompletedTrue();
-    }
-
-    public List<Task> findAllInCompleteTask() {
-        return taskRepository.findByCompletedFalse();
-    }
-
-    public void deleteTask(Long id) {
-        taskRepository.deleteById(id);
-    }
-
-    public Optional<Task> updateTask(Long id, Task task) {
-
-        Optional<Task> result = taskRepository.findById(id);
-
-        try {
-            Task temp = result.get();
-            temp.setTask(task.getTask());
-            temp.setCompleted(task.getCompleted());
-            return Optional.of(taskRepository.save(temp));
-        } catch (Exception e) {
-            return result;
-        }
-    }
+    public abstract Optional<Task> updateTask(Long id, Task task);
 
 }
