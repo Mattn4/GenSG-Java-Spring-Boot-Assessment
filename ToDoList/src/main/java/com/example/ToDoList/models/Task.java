@@ -2,6 +2,8 @@ package com.example.ToDoList.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tasks")
@@ -14,10 +16,11 @@ public class Task {
 
     @Column
     @NotBlank(message = "task cannot be blank.")
+    // @NotBlank annotation must be applied on any String field only
     private String task;
 
     @Column
-    @NotBlank(message = "task status cannot be blank")
+    @NotNull(message = "task status cannot be blank")
     private boolean completed;
 
     public Task() {
@@ -40,7 +43,7 @@ public class Task {
     public void setTask(String task) {
         this.task = task;
     }
-    public boolean isCompleted() {
+    public boolean getCompleted() {
         return completed;
     }
     public void setCompleted(boolean completed) {

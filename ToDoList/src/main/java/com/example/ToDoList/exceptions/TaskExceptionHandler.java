@@ -44,17 +44,19 @@ public class TaskExceptionHandler extends ResponseEntityExceptionHandler {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("error", ex.getMessage());
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request){
+
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((err)->{
-            String field  = ((FieldError) err).getField();
+        ex.getBindingResult().getAllErrors().forEach((err) -> {
+            String field = ((FieldError) err).getField();
             String errMessage = err.getDefaultMessage();
             errors.put(field, errMessage);
         });
+
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
 

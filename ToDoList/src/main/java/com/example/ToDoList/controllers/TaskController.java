@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
@@ -28,11 +29,10 @@ public class TaskController {
         List<Task> result = taskService.getAllTask();
 
         if(result.isEmpty()) {
-            throw new NoTasksFoundException(); // did not show message
+            throw new NoTasksFoundException();
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
-
     }
 
 //    public ResponseEntity<Object> getAllTasks() {
@@ -44,7 +44,6 @@ public class TaskController {
 //        }else{
 //            return new ResponseEntity<>("No task(s) found", HttpStatus.NOT_FOUND);
 //        }
-//
 //    }
 
 //    public ResponseEntity<List<Task>> getAllTasks() {
@@ -54,49 +53,77 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getSingleTask(@PathVariable Long id){
 
-        Task result = taskService.getProduct(id).orElseThrow(() -> new TaskNotFoundException(id));
+        Task result = taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException(id));
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
     @GetMapping("/completed")
-    public ResponseEntity<List<Task>> getAllCompletedTasks() {
-        return ResponseEntity.ok(taskService.findAllCompletedTask());
-        //return new ResponseEntity<>(taskService.findAllCompletedTask(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllCompletedTasks() {
+
+        List<Task> result = taskService.findAllCompletedTask();
+
+        if(result.isEmpty()) {
+            throw new NoTasksFoundException();
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/incomplete")
-    public ResponseEntity<List<Task>> getAllIncompleteTasks() {
-        return ResponseEntity.ok(taskService.findAllInCompleteTask());
-        //return new ResponseEntity<>(taskService.findAllInCompleteTask(), HttpStatus.OK);
+    public ResponseEntity<Object> getAllIncompleteTasks() {
+
+        List<Task> result = taskService.findAllInCompleteTask();
+
+        if(result.isEmpty()) {
+            throw new NoTasksFoundException();
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
+
+    @PostMapping()
+    public ResponseEntity<Object> createTask(@Valid @RequestBody Task task) {
+        return new ResponseEntity<>(taskService.createNewTask(task), HttpStatus.CREATED);
+    }
+
+//    @PostMapping()
+//    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+//        return ResponseEntity.ok(taskService.createNewTask(task));
+//    }
 
 //    @PostMapping()
 //    public ResponseEntity<Object> createTask(@Valid @RequestBody Task task) {
-//        return new ResponseEntity<>(taskService.createNewTask(task), HttpStatus.CREATED);
-//    }
-
-    @PostMapping()
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.createNewTask(task));
-    }
-
-//    @PostMapping()
-//    public ResponseEntity<Object> createTask(@RequestBody Task task) {
 //        taskService.createNewTask(task);
 //        return new ResponseEntity<>("Task is created successfully!!", HttpStatus.CREATED);
 //    }
 
+
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+//        task.setId(id);
+//        return ResponseEntity.ok(taskService.updateTask(task));
+//        //return new ResponseEntity<>(taskService.updateTask(task), HttpStatus.OK);
+//    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        task.setId(id);
-        return ResponseEntity.ok(taskService.updateTask(task));
-        //return new ResponseEntity<>(taskService.updateTask(task), HttpStatus.OK);
+    public ResponseEntity<Object> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
+
+        taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException(id));
+        Optional<Task> result = taskService.updateTask(id, task);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTask(@PathVariable Long id) {
+
+        taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException(id));
         taskService.deleteTask(id);
+
         return new ResponseEntity<>("Task is deleted successfully.", HttpStatus.OK);
     }
 

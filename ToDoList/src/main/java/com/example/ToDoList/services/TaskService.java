@@ -29,7 +29,7 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Optional<Task> getProduct(Long id){
+    public Optional<Task> getTask(Long id){
         return taskRepository.findById(id);
     }
 
@@ -45,7 +45,18 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    public Task updateTask(Task task) {
-        return taskRepository.save(task);
+    public Optional<Task> updateTask(Long id, Task task) {
+
+        Optional<Task> result = taskRepository.findById(id);
+
+        try {
+            Task temp = result.get();
+            temp.setTask(task.getTask());
+            temp.setCompleted(task.getCompleted());
+            return Optional.of(taskRepository.save(temp));
+        } catch (Exception e) {
+            return result;
+        }
     }
+
 }
