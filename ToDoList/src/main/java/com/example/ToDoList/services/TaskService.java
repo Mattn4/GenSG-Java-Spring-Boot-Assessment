@@ -9,8 +9,16 @@ import java.util.List;
 
 @Service
 public class TaskService {
-    @Autowired
-    private TaskRepository taskRepository;
+
+    private final TaskRepository taskRepository;
+
+    public TaskService (@Autowired TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+//    public void createNewTask(Task task) {
+//        taskRepository.save(task);
+//    }
 
     public Task createNewTask(Task task) {
         return taskRepository.save(task);
