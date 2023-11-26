@@ -47,16 +47,6 @@ public class TaskExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
-
-//    protected ResponseEntity<Object> handleDuplicateEntityFound(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request){
-//
-//        DuplicateTaskNameException duplicateTaskNameException = new DuplicateTaskNameException();
-//        Map<String, String> errorResponse = new HashMap<>();
-//        errorResponse.put("error", duplicateTaskNameException.getMessage());
-//
-//        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-//    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request){
 

@@ -13,8 +13,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     public Optional<Task> findByTask(String task);
 
     public List<Task> findByCompletedIs(String completed);
-
-  //  public List<Task> findByCompletedIsNo();
-
-
+    // find task by its completion status ("yes" or "no")
 }

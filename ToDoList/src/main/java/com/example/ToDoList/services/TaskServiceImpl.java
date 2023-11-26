@@ -17,10 +17,6 @@ public class TaskServiceImpl implements TaskService{
         this.taskRepository = taskRepository;
     }
 
-//    public void createNewTask(Task task) {
-//        taskRepository.save(task);
-//    }
-
     @Override
     public Task createNewTask(Task task) {
         return taskRepository.save(task);
@@ -64,6 +60,7 @@ public class TaskServiceImpl implements TaskService{
         } catch (Exception e) {
             return result;
         }
+        
     }
 
     @Override

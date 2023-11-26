@@ -15,13 +15,15 @@ public class Task {
 
     @Column(unique=true)
     @NotEmpty(message = "task cannot be blank.")
-    // @NotBlank annotation must be applied on any String field only
+    // @NotBlank annotation must be applied on String field only
     private String task;
 
     @Column
     @TaskStatusValidator
     //@NotEmpty(message = "task status cannot be blank")
+    // Cannot add as it will clash with @TaskStatusValidator
     private String completed;
+    // Instead of boolean, String provided more flexible validation
 
     public Task() {
     }

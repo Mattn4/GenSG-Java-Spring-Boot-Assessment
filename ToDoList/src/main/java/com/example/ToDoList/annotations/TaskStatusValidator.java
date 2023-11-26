@@ -19,11 +19,10 @@ public @interface TaskStatusValidator {
 
     //error message
     String message() default "Enter yes or no (in lower case)";
+
     //represents group of constraints
-
     Class<?>[] groups() default {};
+
     //represents additional information about annotation
-
     Class<? extends Payload>[] payload() default {};
-
 }

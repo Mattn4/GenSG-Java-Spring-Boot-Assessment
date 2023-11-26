@@ -80,6 +80,9 @@ public class TaskController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
 
+        // For these codes, exception handling for @Valid is prioritized instead of TaskNotFoundException
+        // Don't know how to prioritize TaskNotFoundException
+
         taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException());
         Optional<Task> result = taskService.updateTask(id, task);
 
