@@ -38,12 +38,12 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public List<Task> findAllCompletedTask() {
-        return taskRepository.findByCompletedTrue();
+        return taskRepository.findByCompletedIs("yes");
     }
 
     @Override
     public List<Task> findAllInCompleteTask() {
-        return taskRepository.findByCompletedFalse();
+        return taskRepository.findByCompletedIs("no");
     }
 
     @Override

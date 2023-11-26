@@ -11,6 +11,10 @@ import java.util.Optional;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     public Optional<Task> findByTask(String task);
-    public List<Task> findByCompletedTrue();
-    public List<Task> findByCompletedFalse();
+
+    public List<Task> findByCompletedIs(String completed);
+
+  //  public List<Task> findByCompletedIsNo();
+
+
 }
