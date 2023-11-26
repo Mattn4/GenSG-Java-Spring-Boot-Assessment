@@ -13,7 +13,7 @@ public class Task {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="yourSequenceGenerator")
     private Long id;
 
-    @Column
+    @Column(unique=true)
     @NotBlank(message = "task cannot be blank.")
     // @NotBlank annotation must be applied on any String field only
     private String task;

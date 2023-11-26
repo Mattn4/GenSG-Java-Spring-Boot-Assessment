@@ -66,4 +66,9 @@ public class TaskServiceImpl implements TaskService{
         }
     }
 
+    @Override
+    public Optional<Task> findByTaskName(String task){
+        return taskRepository.findByTask(task);
+    }
+
 }

@@ -20,4 +20,6 @@ public interface TaskService {
 
     public abstract Optional<Task> updateTask(Long id, Task task);
 
+    public abstract Optional<Task> findByTaskName(String task);
+
 }
