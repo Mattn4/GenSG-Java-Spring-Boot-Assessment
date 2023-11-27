@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `tasks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tasks` (
   `id` bigint NOT NULL,
-  `completed` varchar(255) DEFAULT NULL,
+  `completed` bit(1) DEFAULT NULL,
   `task` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_frkvaiwuqyqo2kbjvs7vk8kky` (`task`)
@@ -39,7 +39,7 @@ CREATE TABLE `tasks` (
 
 LOCK TABLES `tasks` WRITE;
 /*!40000 ALTER TABLE `tasks` DISABLE KEYS */;
-INSERT INTO `tasks` VALUES (1,'no','Complete Spring Boot Assessment'),(2,'no','Prepare technical interview'),(3,'yes','Write resume'),(4,'no','Learn Data Structure & Algorithm'),(5,'yes','Apply Microsoft certification voucher');
+INSERT INTO `tasks` VALUES (1,_binary '','Apply Microsoft certification'),(2,_binary '\0','Complete Spring Boot Assessment'),(3,_binary '\0','Prepare technical interview'),(4,_binary '','Write resume'),(6,_binary '\0','Learn Data Structure & Algorithm');
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `your_sequence_generator` (
 
 LOCK TABLES `your_sequence_generator` WRITE;
 /*!40000 ALTER TABLE `your_sequence_generator` DISABLE KEYS */;
-INSERT INTO `your_sequence_generator` VALUES (7);
+INSERT INTO `your_sequence_generator` VALUES (8);
 /*!40000 ALTER TABLE `your_sequence_generator` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -74,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-26 20:05:30
+-- Dump completed on 2023-11-27  9:40:33
