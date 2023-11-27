@@ -1,8 +1,8 @@
 package com.example.ToDoList.models;
 
-import com.example.ToDoList.annotations.TaskStatusValidator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tasks")
@@ -19,16 +19,15 @@ public class Task {
     private String task;
 
     @Column
-    @TaskStatusValidator
-    //@NotEmpty(message = "task status cannot be blank")
-    // Cannot add as it will clash with @TaskStatusValidator
-    private String completed;
-    // Instead of boolean, String provided more flexible validation
+    @NotNull(message = "task status cannot be blank")
+    private Boolean completed;
+    // use Boolean : default value is null
+    // boolean: default value is false
 
     public Task() {
     }
 
-    public Task(String task, String completed) {
+    public Task(String task, Boolean completed) {
         this.task = task;
         this.completed = completed;
     }
@@ -45,10 +44,10 @@ public class Task {
     public void setTask(String task) {
         this.task = task;
     }
-    public String getCompleted() {
+    public Boolean getCompleted() {
         return completed;
     }
-    public void setCompleted(String completed) {
+    public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
 

@@ -34,13 +34,19 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public List<Task> findAllCompletedTask() {
-        return taskRepository.findByCompletedIs("yes");
+        return taskRepository.findByCompletedTrue();
     }
+//    public List<Task> findAllCompletedTask() {
+//        return taskRepository.findByCompletedIs("yes");
+//    }
 
     @Override
     public List<Task> findAllInCompleteTask() {
-        return taskRepository.findByCompletedIs("no");
+        return taskRepository.findByCompletedFalse();
     }
+//    public List<Task> findAllInCompleteTask() {
+//        return taskRepository.findByCompletedIs("no");
+//    }
 
     @Override
     public void deleteTask(Long id) {
